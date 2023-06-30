@@ -1,0 +1,131 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sandbox REST API",
+    "description": "Sandbox REST API Docs",
+    "version": "23.1.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Локальный сервер разработки"
+    }
+  ],
+  "paths": {
+    "/api/catalogue/products": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Успешный результат получения списка товаров",
+            "content": {
+              "application/vnd.eselpo.catalogue.products.v1+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "title": "Идентификатор товара",
+                        "nullable": false,
+                        "example": "a396a088-172c-11ee-aa6f-4f6009552211"
+                      },
+                      "title": {
+                        "type": "string",
+                        "title": "Название товара",
+                        "nullable": false,
+                        "example": "Молоко, 3,2%, 1 литр"
+                      },
+                      "details": {
+                        "type": "string",
+                        "title": "Подробное описание товара",
+                        "nullable": true,
+                        "example": "Молоко с жирностью 3,2% в упаковке 1 литр"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/vnd.eselpo.catalogue.new-product-payload.v1+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "title": "Название товара",
+                    "nullable": false,
+                    "example": "Молоко, 3,2%, 1 литр"
+                  },
+                  "details": {
+                    "type": "string",
+                    "title": "Подробное описание товара",
+                    "nullable": true,
+                    "example": "Молоко с жирностью 3,2% в упаковке 1 литр"
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Товар успешно создан",
+            "headers": {
+              "Location": {
+                "required": true
+              }
+            },
+            "content": {
+              "application/vnd.eselpo.catalogue.product.v1+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "title": "Идентификатор товара",
+                      "nullable": false,
+                      "example": "a396a088-172c-11ee-aa6f-4f6009552211"
+                    },
+                    "title": {
+                      "type": "string",
+                      "title": "Название товара",
+                      "nullable": false,
+                      "example": "Молоко, 3,2%, 1 литр"
+                    },
+                    "details": {
+                      "type": "string",
+                      "title": "Подробное описание товара",
+                      "nullable": true,
+                      "example": "Молоко с жирностью 3,2% в упаковке 1 литр"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "title"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Запрос содержит ошибки валидации"
+          }
+        }
+      }
+    }
+  }
+}
